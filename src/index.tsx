@@ -8,7 +8,6 @@ import App from './App';
 
 const queryClient = new QueryClient();
 
-
 const GlobalStyles = createGlobalStyle`
   ${reset}
 
@@ -18,9 +17,11 @@ const GlobalStyles = createGlobalStyle`
   }
   body {
   background: #9f9f9f;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+  font-family: 'Noto Sans', 'Noto Sans KR';
+
+  /* font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
     "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
+    sans-serif; */
 }
   a{
     text-decoration:none;
