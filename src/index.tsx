@@ -1,19 +1,50 @@
 import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
+import CreateDOM from 'react-dom/client';
+import { ThemeProvider, createGlobalStyle } from 'styled-components';
+import { QueryClient, QueryClientProvider } from 'react-query';
+import reset from 'styled-reset';
+import { basicTheme } from './theme';
 import App from './App';
-import reportWebVitals from './reportWebVitals';
 
-const root = ReactDOM.createRoot(
-  document.getElementById('root') as HTMLElement
+const queryClient = new QueryClient();
+
+
+const GlobalStyles = createGlobalStyle`
+  ${reset}
+
+
+  html, body{
+    height:100vh;
+  }
+  body {
+  background: #9f9f9f;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+}
+  a{
+    text-decoration:none;
+    color:#000;
+  }
+  div{
+    box-sizing:border-box;
+  }
+
+  #root {
+    height: 100%;
+  }
+
+`;
+
+const root = CreateDOM.createRoot(
+  document.getElementById('root') as HTMLElement,
 );
+
 root.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
+  <QueryClientProvider client={queryClient}>
+    <ThemeProvider theme={basicTheme}>
+      <GlobalStyles />
+      <App />
+    </ThemeProvider>
+  </QueryClientProvider>,
 );
-
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
