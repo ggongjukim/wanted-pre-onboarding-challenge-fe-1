@@ -6,10 +6,11 @@ export const client = axios.create({
   baseURL: URL,
 });
 
-export const accessClient = (token: string) =>
-  axios.create({
-    baseURL: URL,
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  });
+const token = localStorage.getItem('token');
+
+export const accessClient = axios.create({
+  baseURL: URL,
+  headers: {
+    Authorization: `Bearer ${token}`,
+  },
+});
