@@ -12,9 +12,18 @@ const JoinTap = () => {
       password: '',
     },
   });
-  const joinSubmit = (data: any) => {
-    console.log('data', data);
-    client.post(`/users/create`, data).then((res: any) => console.log(res));
+  const joinSubmit = async (data: any) => {
+    //  validataion 해야 통과하도록 처리하기
+    try {
+      const result: any = await client
+        .post(`users/create`, data)
+        .then((res) => res.data);
+      // console.log(`result`, result);
+      alert(result.message);
+    } catch (err: any) {
+      console.log(err.response.data.details);
+      alert(err.response.data.details);
+    }
   };
 
   return (

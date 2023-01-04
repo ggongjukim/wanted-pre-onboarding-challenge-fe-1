@@ -12,12 +12,19 @@ const LoginTap = () => {
       password: '',
     },
   });
-  const loginSubmit = (data: any) => {
-    console.log('data', data);
-    client.post(`/users/login`, data).then((res: any) => {
-      console.log(res);
-      localStorage.setItem('token', res.data.token);
-    });
+  const loginSubmit = async (data: any) => {
+    //  validation 해야 통과하도록 처리하기
+    try {
+      const result: any = await client
+        .post(`users/login`, data)
+        .then((res) => res.data);
+      // console.log('result', result);
+      localStorage.setItem('token', result.token);
+      alert(result.message);
+    } catch (err: any) {
+      console.log(err.response.data);
+      alert(`아이디와 비밀번호를 확인해주세요`);
+    }
   };
   return (
     <>
