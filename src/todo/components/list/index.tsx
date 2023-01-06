@@ -3,9 +3,15 @@ import { ReactComponent as Add } from 'src/commons/assets/add.svg';
 import { AddDialog } from 'src/commons/dialog';
 import * as S from './styled';
 
-export const ListItem = () => {
-  const title = '목록';
-  return <S.ListItem>{title}</S.ListItem>;
+export const ListItem = (props: any) => {
+  const { title, content, updatedAt, id } = props.data;
+  const date = updatedAt.split('T')[0];
+  return (
+    <S.ListItem>
+      <div>{title}</div>
+      <div>{date}</div>
+    </S.ListItem>
+  );
 };
 
 export const ListAdd = () => {
