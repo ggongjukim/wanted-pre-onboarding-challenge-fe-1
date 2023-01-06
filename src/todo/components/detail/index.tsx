@@ -16,7 +16,7 @@ export const Btn = (props: any) => {
 };
 
 export const Detail = (props: any) => {
-  const { title, content, updatedAt } = props.data;
+  const { title, content, updatedAt, id } = props.data;
   const [IsEdit, setIsEdit] = useState(false);
 
   const { register, handleSubmit } = useForm({
@@ -30,9 +30,11 @@ export const Detail = (props: any) => {
   const editSubmit = async (data: any) => {
     //  validataion 처리하기 => 근데 서버에서 해주긴함
     try {
-      const result = await accessClient.post(`todos`, data).then((res) => res);
+      const result = await accessClient
+        .post(`todos/${id}`, data)
+        .then((res) => res);
       console.log('result', result);
-      alert(`할일이 추가 되었습니다`);
+      alert(`할일이 수정 되었습니다`);
     } catch (err: any) {
       alert(err.response.data.details);
     }
