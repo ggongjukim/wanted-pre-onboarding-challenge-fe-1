@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import TextField from '@mui/material/TextField';
 import { accessClient } from 'src/commons/axiosInstance';
@@ -16,29 +16,42 @@ export const Btn = (props: any) => {
 };
 
 export const Detail = (props: any) => {
-  const { title, content, updatedAt, id } = props.data;
-  const [IsEdit, setIsEdit] = useState(false);
+  // const { title, content, updatedAt, id } = props.data;
+  console.log(`detail 랜더링 `, props.detailId);
+  const [detaildata, setDetailData] = useState<any>();
+  const [IsEdit, setIsEdit] = useState(props.IsEdit);
 
-  const { register, handleSubmit } = useForm({
-    defaultValues: {
-      title: '',
-      content: '',
-    },
-  });
+  const getDetaildata = async () => {
+    const result = await accessClient
+      .get(`/todos/${props.detailId}`)
+      .then((res) => res.data.data);
+    console.log(`detailresult`, result);
+    setDetailData(result);
+  };
+
+  useEffect(() => {
+    console.log(`Detaileffect`);
+    if (props.detailId) getDetaildata();
+  }, [props.detailId, props.IsEdit]);
+
+  const { register, handleSubmit } = useForm();
+
   const formRef = useRef<any>(null);
 
+  // update - put
   const editSubmit = async (data: any) => {
     //  validataion 처리하기 => 근데 서버에서 해주긴함
     try {
       const result = await accessClient
-        .post(`todos/${id}`, data)
+        .put(`todos/${props.detailId}`, data)
         .then((res) => res);
       console.log('result', result);
       alert(`할일이 수정 되었습니다`);
+      setIsEdit(false);
     } catch (err: any) {
       alert(err.response.data.details);
     }
-  }; // api 추가, handleClose
+  }; // api 추가
 
   //  Btn clickHandler
   const clickHandlerEdit = () => {
@@ -59,15 +72,14 @@ export const Detail = (props: any) => {
         new Event('submit', { cancelable: true, bubbles: true }),
       );
     }
-    setIsEdit(false);
   };
 
   return (
     <S.Container>
       {!IsEdit ? (
         <>
-          <S.Title>{title}</S.Title>
-          <S.Content>{content}</S.Content>
+          <S.Title>{detaildata && detaildata.title}</S.Title>
+          <S.Content>{detaildata && detaildata.content}</S.Content>
         </>
       ) : (
         <form ref={formRef} onSubmit={handleSubmit(editSubmit)}>
@@ -77,7 +89,7 @@ export const Detail = (props: any) => {
             multiline
             fullWidth
             maxRows={2}
-            defaultValue={title}
+            defaultValue={detaildata && detaildata.title}
             {...register('title')}
           />
           <TextField
@@ -86,7 +98,7 @@ export const Detail = (props: any) => {
             multiline
             rows={4}
             fullWidth
-            defaultValue={content}
+            defaultValue={detaildata && detaildata.content}
             {...register('content')}
           />
           <input type="submit" style={{ display: `none` }} />

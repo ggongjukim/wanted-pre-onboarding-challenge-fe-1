@@ -4,23 +4,17 @@ import { ListItem, ListAdd } from '../components/list';
 import { Detail } from '../components/detail';
 import * as S from './styled';
 
-const detaildata = {
-  title: 'hi',
-  content: 'hello',
-  id: 'z3FGrcRL55qDCFnP4KRtn',
-  createdAt: '2022-07-24T14:15:55.537Z',
-  updatedAt: '2022-07-24T14:15:55.537Z',
-};
-
 const Todo = () => {
   console.log('Todo');
   const title = 'todo';
   const [data, setData] = useState<any[]>();
+  const [detailId, setDetailId] = useState<string>();
 
   const getdata = async () => {
     const result = await accessClient.get(`todos`).then((res) => res.data.data);
     console.log(`result`, result);
     setData(result);
+    // setDetailId(result[0].id);
   };
 
   useEffect(() => {
@@ -28,20 +22,29 @@ const Todo = () => {
     getdata();
   }, []);
 
+  const clickHandlerListItem = (selectedId: string) => {
+    setDetailId(selectedId);
+    console.log('selectedId ', detailId);
+  };
   return (
     <>
       {title}
-
       <S.Container>
         <S.ListContainer>
           할일 목록
           {data &&
-            data.map((item: any) => <ListItem data={item} key={item.id} />)}
+            data.map((item: any) => (
+              <ListItem
+                data={item}
+                key={item.id}
+                clickHandlerListItem={clickHandlerListItem}
+              />
+            ))}
           <ListAdd />
         </S.ListContainer>
         <S.DetailContainer>
           상세 목록
-          <Detail data={detaildata} />
+          {detailId && <Detail detailId={detailId} IsEdit={false} />}
         </S.DetailContainer>
       </S.Container>
     </>
