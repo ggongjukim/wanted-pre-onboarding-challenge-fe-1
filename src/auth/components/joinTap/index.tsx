@@ -1,7 +1,10 @@
 import { useForm } from 'react-hook-form';
+import { useNavigate } from 'react-router-dom';
 import { client } from 'src/commons/axiosInstance';
 
 const JoinTap = () => {
+  const navigate = useNavigate();
+
   const {
     register,
     handleSubmit,
@@ -18,8 +21,9 @@ const JoinTap = () => {
       const result: any = await client
         .post(`users/create`, data)
         .then((res) => res.data);
-      // console.log(`result`, result);
+      localStorage.setItem('token', result.token);
       alert(result.message);
+      navigate('/');
     } catch (err: any) {
       console.log(err.response.data.details);
       alert(err.response.data.details);

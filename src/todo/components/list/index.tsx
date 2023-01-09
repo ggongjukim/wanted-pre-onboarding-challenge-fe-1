@@ -20,7 +20,7 @@ export const ListItem = (props: any) => {
 };
 
 // 할일 추가 버튼
-export const ListAdd = () => {
+export const ListAdd = (props: any) => {
   const [open, setOpen] = useState(false);
 
   const handleClickOpen = () => {
@@ -29,6 +29,7 @@ export const ListAdd = () => {
 
   const handleClose = () => {
     setOpen(false);
+    props.getdata();
   };
 
   return (

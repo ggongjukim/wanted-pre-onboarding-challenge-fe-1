@@ -16,16 +16,12 @@ const GlobalStyles = createGlobalStyle`
     height:100vh;
   }
   body {
-  background: #9f9f9f;
+  background: #FAF7F0;
   font-family: 'Noto Sans', 'Noto Sans KR';
-
-  /* font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif; */
 }
   a{
     text-decoration:none;
-    color:#000;
+    color:#3c3a3a;
   }
   div{
     box-sizing:border-box;

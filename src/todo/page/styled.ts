@@ -1,12 +1,18 @@
 import styled from 'styled-components';
 import { ListItem } from '../components/list/index';
 
+export const Title = styled.div`
+  max-width: 1200px;
+  margin: 0 auto;
+  margin-top: 100px;
+  font-size: 50px;
+`;
 export const Container = styled.div`
   /* border: 2px solid black; */
   display: flex;
   flex-direction: row;
   max-width: 1200px;
-  margin: 100px auto;
+  margin: 50px auto;
   font-size: 25px;
 `;
 

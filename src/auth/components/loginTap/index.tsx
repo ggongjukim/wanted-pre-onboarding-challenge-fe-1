@@ -1,7 +1,9 @@
 import { useForm } from 'react-hook-form';
+import { useNavigate } from 'react-router-dom';
 import { client } from 'src/commons/axiosInstance';
 
 const LoginTap = () => {
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -18,9 +20,11 @@ const LoginTap = () => {
       const result: any = await client
         .post(`users/login`, data)
         .then((res) => res.data);
-      // console.log('result', result);
       localStorage.setItem('token', result.token);
+      console.log(`확인`, localStorage.getItem('token'));
+
       alert(result.message);
+      navigate('/');
     } catch (err: any) {
       console.log(err.response.data);
       alert(`아이디와 비밀번호를 확인해주세요`);

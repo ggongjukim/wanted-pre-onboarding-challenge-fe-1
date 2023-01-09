@@ -1,14 +1,29 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+
 import Todo from './todo/page';
 import Auth from './auth/page';
 
-const Router = () => (
-  <BrowserRouter>
-    <Routes>
-      <Route path="/" element={<Todo />} />
-      <Route path="/auth" element={<Auth />} />
-    </Routes>
-  </BrowserRouter>
-);
+const checkToken = async () => {
+  const result = await localStorage.getItem('token');
+
+  console.log(`checkToken`, result);
+  return result;
+};
+const token = () => localStorage.getItem('token');
+const GoToDo = () => <>{token() ? <Todo /> : <Navigate to="/auth" />}</>;
+const GoToAuth = () => <>{token() ? <Navigate to="/" /> : <Auth />}</>;
+
+const Router = () => {
+  console.log(`router`);
+
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<GoToDo />} />
+        <Route path="/auth" element={<GoToAuth />} />
+      </Routes>
+    </BrowserRouter>
+  );
+};
 
 export default Router;
