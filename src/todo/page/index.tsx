@@ -9,6 +9,7 @@ const Todo = () => {
   const title = 'todo';
   const [data, setData] = useState<any[]>();
   const [detailId, setDetailId] = useState<string>();
+  const [IsDetail, setIsDetail] = useState(false); // 상세 컴포넌트
 
   const getdata = async () => {
     const result = await accessClient.get(`todos`).then((res) => res.data.data);
@@ -24,8 +25,10 @@ const Todo = () => {
 
   const clickHandlerListItem = (selectedId: string) => {
     setDetailId(selectedId);
+    setIsDetail(true);
     console.log('selectedId ', detailId);
   };
+
   return (
     <>
       {title}
@@ -44,7 +47,16 @@ const Todo = () => {
         </S.ListContainer>
         <S.DetailContainer>
           상세 목록
-          {detailId && <Detail detailId={detailId} IsEdit={false} />}
+          {IsDetail && (
+            <Detail
+              detailId={detailId}
+              setIsDetail={(control: any) => {
+                getdata();
+                setIsDetail(control);
+              }}
+              getData={() => getdata()}
+            />
+          )}
         </S.DetailContainer>
       </S.Container>
     </>

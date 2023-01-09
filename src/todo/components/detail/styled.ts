@@ -30,6 +30,9 @@ export const ContainerBtn = styled.div`
   display: flex;
   flex-direction: row;
 `;
+export const Date = styled.div`
+  margin-top: auto;
+`;
 export const Btn = styled.button`
   margin-top: auto;
   margin-left: auto;

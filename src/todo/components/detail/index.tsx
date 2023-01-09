@@ -4,11 +4,11 @@ import TextField from '@mui/material/TextField';
 import { accessClient } from 'src/commons/axiosInstance';
 import * as S from './styled';
 
-export const Content = (props: any) => {};
 export const Btn = (props: any) => {
-  const { btn0, btn1, clickHandler0, clickHandler1 } = props;
+  const { btn0, btn1, clickHandler0, clickHandler1, updatedAt } = props;
   return (
     <S.ContainerBtn>
+      <S.Date>{updatedAt}</S.Date>
       <S.Btn onClick={clickHandler0}>{btn0}</S.Btn>
       <S.Btn onClick={clickHandler1}>{btn1}</S.Btn>
     </S.ContainerBtn>
@@ -18,14 +18,19 @@ export const Btn = (props: any) => {
 export const Detail = (props: any) => {
   console.log(`detail 랜더링 `, props.detailId);
   const [detaildata, setDetailData] = useState<any>();
-  const [IsEdit, setIsEdit] = useState<boolean>();
+  const [IsEdit, setIsEdit] = useState<boolean>(false);
 
   const getDetaildata = async () => {
-    const result = await accessClient
-      .get(`/todos/${props.detailId}`)
-      .then((res) => res.data.data);
-    console.log(`detailresult`, result);
-    setDetailData(result);
+    try {
+      const result = await accessClient
+        .get(`/todos/${props.detailId}`)
+        .then((res) => res.data.data);
+      console.log(`detailresult`, result);
+      setDetailData(result);
+    } catch {
+      console.log('getDetaildata error');
+      props.setIsDetailFalse();
+    }
   };
 
   useEffect(() => {
@@ -34,7 +39,7 @@ export const Detail = (props: any) => {
     setIsEdit(false); // IsEdit false 모드
   }, [props.detailId]);
 
-  const { register, handleSubmit } = useForm();
+  const { register, handleSubmit, setValue } = useForm();
 
   const formRef = useRef<any>(null);
 
@@ -49,6 +54,9 @@ export const Detail = (props: any) => {
       setIsEdit(false);
       // 업데이트된 내용으로 안보임 => api 재요청 ?
       getDetaildata();
+      props.getData();
+
+      // props.setIsDetail(true);
     } catch (err: any) {
       alert(err.response.data.details);
     }
@@ -56,8 +64,14 @@ export const Detail = (props: any) => {
 
   //  Btn clickHandler
   const clickHandlerEdit = () => {
+    // getDetaildata();
+    setValue('title', detaildata.title);
+    setValue('content', detaildata.content);
+
     setIsEdit(true);
   };
+
+  //  삭제
   const clickHandlerDelete = async () => {
     try {
       const result = await accessClient
@@ -67,7 +81,8 @@ export const Detail = (props: any) => {
       alert(`할일이 삭제 되었습니다`);
       setIsEdit(false);
       // 업데이트된 내용으로 안보임 => api 재요청 ?
-      getDetaildata();
+      // getDetaildata();
+      props.setIsDetail(false);
     } catch (err: any) {
       alert(err.response.data.details);
     }
@@ -86,6 +101,8 @@ export const Detail = (props: any) => {
     }
   };
 
+  console.log(`setDetailData`, detaildata);
+
   return (
     <S.Container>
       {!IsEdit ? (
@@ -101,7 +118,7 @@ export const Detail = (props: any) => {
             multiline
             fullWidth
             maxRows={2}
-            defaultValue={detaildata && detaildata.title}
+            // defaultValue={detaildata && detaildata.title} // 갱신이 안됨
             {...register('title')}
           />
           <TextField
@@ -110,7 +127,7 @@ export const Detail = (props: any) => {
             multiline
             rows={4}
             fullWidth
-            defaultValue={detaildata && detaildata.content}
+            // defaultValue={detaildata && detaildata.content}
             {...register('content')}
           />
           <input type="submit" style={{ display: `none` }} />
@@ -123,6 +140,7 @@ export const Detail = (props: any) => {
           btn1="삭제"
           clickHandler0={clickHandlerEdit}
           clickHandler1={clickHandlerDelete}
+          updatedAt={detaildata && detaildata.updatedAt.split('T')[0]}
         />
       ) : (
         <Btn
