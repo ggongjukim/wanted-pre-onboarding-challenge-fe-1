@@ -40,7 +40,7 @@ const Todo = () => {
                 clickHandlerListItem={clickHandlerListItem}
               />
             ))}
-          <ListAdd />
+          <ListAdd getdata={getdata} />
         </S.ListContainer>
         <S.DetailContainer>
           상세 목록

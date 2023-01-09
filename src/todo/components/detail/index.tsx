@@ -16,10 +16,9 @@ export const Btn = (props: any) => {
 };
 
 export const Detail = (props: any) => {
-  // const { title, content, updatedAt, id } = props.data;
   console.log(`detail 랜더링 `, props.detailId);
   const [detaildata, setDetailData] = useState<any>();
-  const [IsEdit, setIsEdit] = useState(props.IsEdit);
+  const [IsEdit, setIsEdit] = useState<boolean>();
 
   const getDetaildata = async () => {
     const result = await accessClient
@@ -32,7 +31,8 @@ export const Detail = (props: any) => {
   useEffect(() => {
     console.log(`Detaileffect`);
     if (props.detailId) getDetaildata();
-  }, [props.detailId, props.IsEdit]);
+    setIsEdit(false); // IsEdit false 모드
+  }, [props.detailId]);
 
   const { register, handleSubmit } = useForm();
 
@@ -40,7 +40,6 @@ export const Detail = (props: any) => {
 
   // update - put
   const editSubmit = async (data: any) => {
-    //  validataion 처리하기 => 근데 서버에서 해주긴함
     try {
       const result = await accessClient
         .put(`todos/${props.detailId}`, data)
@@ -48,6 +47,8 @@ export const Detail = (props: any) => {
       console.log('result', result);
       alert(`할일이 수정 되었습니다`);
       setIsEdit(false);
+      // 업데이트된 내용으로 안보임 => api 재요청 ?
+      getDetaildata();
     } catch (err: any) {
       alert(err.response.data.details);
     }
@@ -57,8 +58,19 @@ export const Detail = (props: any) => {
   const clickHandlerEdit = () => {
     setIsEdit(true);
   };
-  const clickHandlerDelete = () => {
-    console.log(`delete`);
+  const clickHandlerDelete = async () => {
+    try {
+      const result = await accessClient
+        .delete(`todos/${props.detailId}`)
+        .then((res) => res);
+      console.log('result', result);
+      alert(`할일이 삭제 되었습니다`);
+      setIsEdit(false);
+      // 업데이트된 내용으로 안보임 => api 재요청 ?
+      getDetaildata();
+    } catch (err: any) {
+      alert(err.response.data.details);
+    }
   };
   const clickHandlerCancel = () => {
     setIsEdit(false);
