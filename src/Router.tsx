@@ -9,13 +9,8 @@ const checkToken = async () => {
   console.log(`checkToken`, result);
   return result;
 };
-const token = () => {
-  console.log(`호출`);
-  return localStorage.getItem('token');
-};
+const token = () => localStorage.getItem('token');
 const GoToDo = () => <>{token() ? <Todo /> : <Navigate to="/auth" />}</>;
-// <Route path="/" element={token() ? <Todo /> : <Navigate to="/auth" />} />
-
 const GoToAuth = () => <>{token() ? <Navigate to="/" /> : <Auth />}</>;
 
 const Router = () => {

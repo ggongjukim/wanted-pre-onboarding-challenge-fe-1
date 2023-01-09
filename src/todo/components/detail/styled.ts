@@ -3,17 +3,17 @@ import styled from 'styled-components';
 export const Container = styled.div`
   width: 100%;
   height: 500px;
+
   background-color: white;
+  border: 2px solid #e1e1e1;
   border-radius: 25px;
+  box-shadow: 0 3px 3px rgba(0, 0, 0, 0.2);
 
   margin-left: 20px;
 
   display: flex;
   flex-direction: column;
-  padding: 20px;
-  /* div + div {
-    margin-top: 20px;
-  } */
+  padding: 40px;
 `;
 
 export const Title = styled.div`

@@ -6,7 +6,6 @@ import * as S from './styled';
 
 const Todo = () => {
   console.log('Todo');
-  const title = 'todo';
   const [data, setData] = useState<any[]>();
   const [detailId, setDetailId] = useState<string>();
   const [IsDetail, setIsDetail] = useState(false); // 상세 컴포넌트
@@ -31,10 +30,9 @@ const Todo = () => {
 
   return (
     <>
-      {title}
+      <S.Title>TO DO LIST</S.Title>
       <S.Container>
         <S.ListContainer>
-          할일 목록
           {data &&
             data.map((item: any) => (
               <ListItem
@@ -46,7 +44,6 @@ const Todo = () => {
           <ListAdd getdata={getdata} />
         </S.ListContainer>
         <S.DetailContainer>
-          상세 목록
           {IsDetail && (
             <Detail
               detailId={detailId}

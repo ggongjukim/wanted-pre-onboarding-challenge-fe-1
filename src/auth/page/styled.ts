@@ -34,7 +34,7 @@ export const ContentTap = styled.div`
 
   h1 {
     font-weight: 100;
-    color: white;
+    color: #5f6f94;
     text-align: center;
     padding-bottom: 10px;
     border-bottom: 1px solid rgb(79, 98, 148);
@@ -59,11 +59,12 @@ export const ContentTap = styled.div`
     display: block;
     box-sizing: border-box;
     width: 100%;
+    /* height: 50px; */
     border-radius: 4px;
-    border: 1px solid white;
+    border: 1px solid #5f6f94;
     padding: 10px 15px;
     margin-bottom: 10px;
-    font-size: 14px;
+    font-size: 20px;
   }
 
   label {
@@ -72,27 +73,27 @@ export const ContentTap = styled.div`
     display: block;
     margin-bottom: 13px;
     margin-top: 20px;
-    color: white;
+    color: #5f6f94;
     font-size: 14px;
     font-weight: 200;
   }
 
   button[type='submit'],
   input[type='submit'] {
-    background: #ec5990;
+    background: #98a8f8;
     color: white;
     text-transform: uppercase;
     border: none;
     margin-top: 40px;
     padding: 20px;
-    font-size: 16px;
+    font-size: 20px;
     font-weight: 100;
     letter-spacing: 10px;
   }
 
   button[type='submit']:hover,
   input[type='submit']:hover {
-    background: #bf1650;
+    background: #bccef8;
   }
 
   button[type='submit']:active,
@@ -127,7 +128,7 @@ export const ContentTap = styled.div`
     display: block;
     appearance: none;
     background: #333;
-    color: white;
+    color: #5f6f94;
     border: none;
     text-transform: uppercase;
     padding: 10px 20px;
