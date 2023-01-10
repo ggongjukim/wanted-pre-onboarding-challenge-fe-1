@@ -1,11 +1,16 @@
-# 사전과제 구현 항목과 결과
+# [0차] 사전과제 구현 항목과 결과
+
+### 사용 스택
 ```
 - View (React with typescript, react-router-dom, react-hook-form)
 - Style (@mui/materia, @emotion/styled, react-hook-form, framer-motion)
 - Build Tool (Create React App)
 - Code Quality Tool (Prettier, EsLint)
 ```
-`react-query` 와 `recoil` 을 사용해 리펙토링할 예정입니다
+
+### 향후 계획
+[1차] 리팩토링 : `react-query` 와 `redux toolkit` 을 사용해 리펙토링할 예정        
+[2차] 리팩토링 : `react-query` 와 `recoil`을 사용해 리펙토링할 예정
 
 ### Assignment 1 - Login / SignUp
 
@@ -22,7 +27,7 @@
   - [x] 어떤 경우든 토큰이 유효하지 않다면 사용자에게 알리고 로그인 페이지로 리다이렉트 시켜주세요
   - [x] 회원가입시, 자동로그인 => `useNavigate`
 
-## Assignment 2 - Todo List
+### Assignment 2 - Todo List
 
 - Todo List API를 호출하여 Todo List CRUD 기능을 구현해주세요
   - [x] 목록 / 상세 영역으로 나누어 구현해주세요
@@ -36,3 +41,5 @@
 - 한 페이지 내에서 새로고침 없이 데이터가 정합성을 갖추도록 구현해주세요
 
   - [x] 수정되는 Todo의 내용이 목록에서도 실시간으로 반영되어야 합니다 => **리펙토링 예정**
+  
+  ### 기능 설명 with 이미지
