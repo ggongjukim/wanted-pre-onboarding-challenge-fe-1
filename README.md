@@ -7,9 +7,28 @@
 - Build Tool (Create React App)
 - Code Quality Tool (Prettier, EsLint)
 ```
+### 디렉토리 구조
+```
+src
+├─auth 
+│  ├─components
+│  │  ├─joinTap
+│  │  └─loginTap
+│  ├─page           
+│  └─utils
+├─commons           
+│  ├─assets
+│  ├─axiosInstance    
+│  └─dialog         
+└─todo 
+    ├─components
+    │  ├─detail
+    │  └─list
+    └─page              
+``` 
 
 ### 향후 계획
-[1차] 리팩토링 : `react-query` 와 `redux toolkit` 을 사용해 리펙토링할 예정        
+[1차] 리팩토링 : `react-query` 와 `redux toolkit` 을 사용해 리펙토링할 예정 + 배포       
 [2차] 리팩토링 : `react-query` 와 `recoil`을 사용해 리펙토링할 예정
 
 ### Assignment 1 - Login / SignUp
@@ -42,4 +61,17 @@
 
   - [x] 수정되는 Todo의 내용이 목록에서도 실시간으로 반영되어야 합니다 => **리펙토링 예정**
   
-  ### 기능 설명 with 이미지
+### 기능 설명 with Screenshot
+ 
+- 로그인 / 회원가입 
+    - `/auth`
+    - `react hook form`
+    - `framer motion`
+![localhost_3000_auth (3)](https://user-images.githubusercontent.com/75241542/211576609-6a7ce0b0-8f2d-43dd-9e70-78b922dc0d75.png)
+
+- To do List
+  -  `/`   
+![localhost_3000_](https://user-images.githubusercontent.com/75241542/211576288-b52a451d-4f22-46b3-82ae-e8ea613e815f.png)
+![localhost_3000_ (1)](https://user-images.githubusercontent.com/75241542/211576874-c149b6ea-6769-4e90-aeb5-42081aaaf777.png)
+![localhost_3000_ (2)](https://user-images.githubusercontent.com/75241542/211577373-33b8582f-b479-46ae-be02-9889e64ab5b0.png)
+![localhost_3000_ (3)](https://user-images.githubusercontent.com/75241542/211577837-de793e6d-18f3-4428-824b-919187ae4516.png)
