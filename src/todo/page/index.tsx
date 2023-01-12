@@ -1,21 +1,22 @@
 import { useEffect, useState } from 'react';
-import { accessClient } from 'src/commons/axiosInstance';
+// import { accessClient } from 'src/commons/axiosInstance';
 import { ListItem, ListAdd } from '../components/list';
 import { Detail } from '../components/detail';
+import { getdata } from '../utils';
 import * as S from './styled';
 
 const Todo = () => {
   console.log('Todo');
-  const [data, setData] = useState<any[]>();
+  const [data, setData] = useState<any[]>(); // slice
   const [detailId, setDetailId] = useState<string>();
   const [IsDetail, setIsDetail] = useState(false); // 상세 컴포넌트
 
-  const getdata = async () => {
-    const result = await accessClient.get(`todos`).then((res) => res.data.data);
-    console.log(`result`, result);
-    setData(result);
-    // setDetailId(result[0].id);
-  };
+  // const getdata = async () => {
+  //   const result = await accessClient.get(`todos`).then((res) => res.data.data);
+  //   console.log(`result`, result);
+  //   setData(result);
+  //   // setDetailId(result[0].id);
+  // };
 
   useEffect(() => {
     console.log(`effect`);
