@@ -1,38 +1,29 @@
 import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
+import { Id } from '@reduxjs/toolkit/dist/tsHelpers';
 // import type { RootState } from '../../app/store';
 
-// Define a type for the slice state
-interface CounterState {
-  value: number;
+interface IListState {
+  tilte: string;
+  content: string;
+  id: string;
+  createdAt: string;
+  updatedAt: string;
 }
 
-// Define the initial state using that type
-const initialState: CounterState = {
-  value: 0,
-};
+const initialState: IListState[] = [];
 
-export const counterSlice = createSlice({
-  name: 'counter',
-  // `createSlice` will infer the state type from the `initialState` argument
+export const listSlice = createSlice({
+  name: 'todolist',
   initialState,
   reducers: {
-    increment: (state) => {
-      state.value += 1;
-    },
-    decrement: (state) => {
-      state.value -= 1;
-    },
-    // Use the PayloadAction type to declare the contents of `action.payload`
-    incrementByAmount: (state, action: PayloadAction<number>) => {
-      state.value += action.payload;
+    getTodolist: (state, action) => {
+      console.log('action.payload', action.payload);
+      action.payload.map((item: IListState) => state.push(item)); // 바꾸고 싶음
     },
   },
 });
 
-export const { increment, decrement, incrementByAmount } = counterSlice.actions;
+export const { getTodolist } = listSlice.actions;
 
-// Other code such as selectors can use the imported `RootState` type
-// export const selectCount = (state: RootState) => state.counter.value;
-
-export default counterSlice.reducer;
+export default listSlice.reducer;
