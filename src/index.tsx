@@ -1,8 +1,10 @@
 import React from 'react';
 import CreateDOM from 'react-dom/client';
+import { Provider } from 'react-redux';
 import { ThemeProvider, createGlobalStyle } from 'styled-components';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import reset from 'styled-reset';
+import store from 'src/store';
 import { basicTheme } from './theme';
 import App from './App';
 
@@ -18,7 +20,7 @@ const GlobalStyles = createGlobalStyle`
   body {
   background: #FAF7F0;
   font-family: 'Noto Sans', 'Noto Sans KR';
-}
+  }
   a{
     text-decoration:none;
     color:#3c3a3a;
@@ -39,9 +41,11 @@ const root = CreateDOM.createRoot(
 
 root.render(
   <QueryClientProvider client={queryClient}>
-    <ThemeProvider theme={basicTheme}>
-      <GlobalStyles />
-      <App />
-    </ThemeProvider>
+    <Provider store={store}>
+      <ThemeProvider theme={basicTheme}>
+        <GlobalStyles />
+        <App />
+      </ThemeProvider>
+    </Provider>
   </QueryClientProvider>,
 );
